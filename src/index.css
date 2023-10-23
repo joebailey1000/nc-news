@@ -1,0 +1,52 @@
+html{
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+.parent{
+    background-color: rgb(165, 165, 165);
+    width:800px;
+    border-radius:5px;
+    border:solid grey 1px;
+    margin:10px
+}
+
+.article-card{
+    border-bottom: solid black 1px;;
+}
+
+.flex-div{
+    display:flex;
+    justify-content: space-between;
+    margin: 0px 10px 0px 10px
+}
+
+.de-emphasise{
+    color: rgb(59, 59, 59);
+    margin-top: 20px;
+    margin-right:10px
+}
+
+.article-img{
+    width:200px;
+    height:133px;
+    margin:10px
+}
+
+.vote-button{
+    transform: rotate(-90deg);
+}
+
+.body{
+    margin-top:10px;
+}
+
+.vertical-div{
+    display:flex;
+    flex-direction: column;
+    margin:10px
+}
+
+.comment-icon{
+    width:20px;
+    opacity: 0.5;
+}
