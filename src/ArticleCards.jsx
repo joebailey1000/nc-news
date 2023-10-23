@@ -39,12 +39,16 @@ export const ArticleCards = ({ article_id, showBody }) => {
     },[patchErr])
 
     function pingVotes(increment, article, index) {
+        const newVotes = [...votes]
+        newVotes[index] = votes[index]+increment
+        setVotes(newVotes)
         axios.patch(`https://news-api-p73k.onrender.com/api/articles/${article.article_id}`, { inc_votes: increment })
-            .then((res) => {
-                const newVotes = [...votes]
-                newVotes[index] = res.data.article.votes
+            .catch(err=>{
+                setPatchErr(true)
+                console.log(newVotes[index])
+                newVotes[index] = votes[index]
                 setVotes(newVotes)
-            }).catch(err=>setPatchErr(true))
+            })
     }
     return isLoading?(<p>Loading...</p>):(
         <div className='parent'>
