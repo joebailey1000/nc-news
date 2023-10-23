@@ -7,18 +7,27 @@ import { CommentCards } from './CommentCards'
 export const SingleArticle=()=>{
     const [thisArticle,setThisArticle]=useState({})
     const [thisArticleComments,setThisArticleComments]=useState([])
+    const [isLoading,setIsLoading]=useState(true)
+    const [errState,setErrState]=useState(false)
     const {article_id}=useParams()
     useEffect(()=>{
         axios.get(`https://news-api-p73k.onrender.com/api/articles/${article_id}`)
             .then(res=>setThisArticle(res.data.article))
             .then(()=>axios.get(`https://news-api-p73k.onrender.com/api/articles/${article_id}/comments`))
-            .then(res=>setThisArticleComments(res.data.comments))
-            .catch(err=>console.log(err))
-    },[])
-    return (
+            .then(res=>{
+                setThisArticleComments(res.data.comments)
+                setIsLoading(false)
+            })
+            .catch(err=>setErrState(err))
+    },[article_id])
+    return errState?(
+        <p>There doesn't seem to be anything here...</p>
+    ):isLoading?(
+        <p>Loading...</p>
+    ):(
         <>
-            {Object.keys(thisArticle).length?(<ArticleCards articles={[thisArticle]} showBody={true}/>):'Loading...'}
-            {thisArticleComments.length?(<CommentCards comments={thisArticleComments}/>):'Loading comments...'}
+            <ArticleCards articles={[thisArticle]} showBody={true}/>
+            <CommentCards comments={thisArticleComments}/>
         </>
     )
 }

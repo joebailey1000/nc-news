@@ -4,17 +4,10 @@ import comment from './assets/comment.png'
 import { Link } from 'react-router-dom'
 
 export const ArticleCards = ({ articles, showBody }) => {
-    const [articleCommentCounts, setArticleCommentCounts] = useState([])
-
-    useEffect(() => {
-        Promise.all(articles.map(article => axios.get(`https://news-api-p73k.onrender.com/api/articles/${article.article_id}`))).then(res => {
-            setArticleCommentCounts(res.map(item => item.data.article.comment_count))
-        }).catch(err => console.log(err))
-
-    }, [articles])
+    
     return (
         <div className='parent'>
-            {articles.map((article, index) => {
+            {articles.map(article => {
                 return (
                     <div key={article.article_id} className="article-card">
                         <div className="vertical-div">
@@ -37,7 +30,7 @@ export const ArticleCards = ({ articles, showBody }) => {
                                 <p className="de-emphasise">{article.created_at.slice(0, 10)}</p>
                                 <div className="comment-div">
                                     <img className='comment-icon' src={comment} />
-                                    <p className="comment-count">{articleCommentCounts[index]}</p>
+                                    <p className="comment-count">{article.comment_count}</p>
                                 </div>
                             </div>
                         </div>
