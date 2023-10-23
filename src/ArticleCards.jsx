@@ -45,7 +45,6 @@ export const ArticleCards = ({ article_id, showBody }) => {
         axios.patch(`https://news-api-p73k.onrender.com/api/articles/${article.article_id}`, { inc_votes: increment })
             .catch(err=>{
                 setPatchErr(true)
-                console.log(newVotes[index])
                 newVotes[index] = votes[index]
                 setVotes(newVotes)
             })
@@ -54,7 +53,7 @@ export const ArticleCards = ({ article_id, showBody }) => {
         <div className='parent'>
             {articles.map((article, index) => {
                 return (
-                    <div key={article.article_id} className="article-card">
+                    <div key={article.article_id} className={index===articles.length-1?'':'article-card'}>
                         <div className="vertical-div">
                             <div className="flex-div">
                                 <h4><Link to={`/articles/${article.article_id}`} >{article.title}</Link></h4>
