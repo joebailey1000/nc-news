@@ -4,14 +4,14 @@ html{
 
 .parent{
     background-color: rgb(165, 165, 165);
-    width:800px;
+    width:400px;
     border-radius:5px;
     border:solid grey 1px;
     margin:10px
 }
 
 .article-card{
-    border-bottom: solid black 1px;;
+    border-bottom: solid black 1px;
 }
 
 .flex-div{
@@ -27,13 +27,23 @@ html{
 }
 
 .article-img{
-    width:200px;
-    height:133px;
-    margin:10px
+    margin:10px 30px 10px 30px
 }
 
-.vote-button{
+.vote-button-up{
     transform: rotate(-90deg);
+    width:20px;
+    height:20px;
+}
+
+.vote-button-down{
+    transform: rotate(-90deg);
+    width:20px;
+    height:20px;
+}
+
+.vote-count{
+    margin:0px
 }
 
 .body{
@@ -43,10 +53,23 @@ html{
 .vertical-div{
     display:flex;
     flex-direction: column;
-    margin:10px
+    margin:10px;
 }
 
 .comment-icon{
     width:20px;
+    height:20px;
     opacity: 0.5;
+    margin-top:20px;
+}
+
+.comment-count{
+    margin-top:20px;
+    margin-left:20px
+}
+
+.comment-div{
+    width:100%;
+    display:flex;
+    justify-content: right;
 }
