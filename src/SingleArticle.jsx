@@ -26,7 +26,7 @@ export const SingleArticle=()=>{
         <p>Loading...</p>
     ):(
         <>
-            <ArticleCards articles={[thisArticle]} showBody={true}/>
+            <ArticleCards article_id={article_id} showBody={true}/>
             <CommentCards comments={thisArticleComments}/>
         </>
     )
