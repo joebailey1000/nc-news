@@ -19,14 +19,12 @@ export const ArticleCards = ({ articles, showBody }) => {
                     <div key={article.article_id} className="article-card">
                         <div className="vertical-div">
                             <div className="flex-div">
-                            <h4><Link to={`/articles/${article.article_id}`} >{article.title}</Link></h4>
-                            <div className="vertical-div">
-                            <button className="vote-button-up">{'>'}</button>
-                            <p className="vote-count">{article.votes}</p>
-                            <button className="vote-button-down">{'<'}</button>
-
-
-                        </div>
+                                <h4><Link to={`/articles/${article.article_id}`} >{article.title}</Link></h4>
+                                <div className="vertical-div">
+                                    <button className="vote-button-up">{'>'}</button>
+                                    <p className="vote-count">{article.votes}</p>
+                                    <button className="vote-button-down">{'<'}</button>
+                                </div>
                             </div>
                             {showBody ? (
                                 <>
@@ -43,7 +41,7 @@ export const ArticleCards = ({ articles, showBody }) => {
                                 </div>
                             </div>
                         </div>
-                        
+
                     </div>
                 )
             })}

@@ -2,6 +2,7 @@ import { useParams } from 'react-router-dom'
 import { useEffect,useState } from 'react'
 import axios from 'axios'
 import { ArticleCards } from './ArticleCards'
+import { CommentCards } from './CommentCards'
 
 export const SingleArticle=()=>{
     const [thisArticle,setThisArticle]=useState({})
@@ -17,6 +18,7 @@ export const SingleArticle=()=>{
     return (
         <>
             {Object.keys(thisArticle).length?(<ArticleCards articles={[thisArticle]} showBody={true}/>):'Loading...'}
+            {thisArticleComments.length?(<CommentCards comments={thisArticleComments}/>):'Loading comments...'}
         </>
     )
 }
