@@ -4,7 +4,6 @@ import { ArticleCards } from './ArticleCards'
 import { Routes, Route, Link } from 'react-router-dom'
 import { SingleArticle } from './SingleArticle'
 import { TopicMenu } from './TopicMenu'
-import { TopicCards } from './TopicCards'
 
 
 function App() {
@@ -19,7 +18,7 @@ function App() {
         <Route path='/articles' element={<ArticleCards/>} />
         <Route path='/articles/:article_id' element={<SingleArticle loggedInUser={loggedInUser}/>} />
         <Route path='/topics' element={<TopicMenu/>} />
-        <Route path='/topics/:slug' element={<TopicCards/>}/>
+        <Route path='/topics/:slug' element={<ArticleCards/>}/>
       </Routes>
     </>
   )

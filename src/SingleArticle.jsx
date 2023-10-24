@@ -1,52 +1,64 @@
 import { useParams } from 'react-router-dom'
-import { useEffect,useState } from 'react'
+import { useEffect, useState } from 'react'
 import axios from 'axios'
 import { ArticleCards } from './ArticleCards'
 import { CommentCards } from './CommentCards'
+import { ColorRing } from 'react-loader-spinner'
+import { getCommentsByArticle, postComment } from './utils/axios'
 
-export const SingleArticle=({loggedInUser})=>{
-    const [thisArticleComments,setThisArticleComments]=useState([])
-    const [isLoading,setIsLoading]=useState(true)
-    const [errState,setErrState]=useState(false)
-    const {article_id}=useParams()
+export const SingleArticle = ({ loggedInUser }) => {
+    const [thisArticleComments, setThisArticleComments] = useState([])
+    const [isLoading, setIsLoading] = useState(true)
+    const [errState, setErrState] = useState(false)
+    const { article_id } = useParams()
+    const [commentPending, setCommentPending] = useState(false)
+    const [commentFeedback, setCommentFeedback] = useState('')
 
-    const [commentInput,setCommentInput]=useState('')
+    const [commentInput, setCommentInput] = useState('')
 
-    useEffect(()=>{
-        axios.get(`https://news-api-p73k.onrender.com/api/articles/${article_id}/comments`)
-            .then(res=>{
-                setThisArticleComments(res.data.comments)
-                setIsLoading(false)
-            })
-            .catch(err=>setErrState(err))
-    },[article_id])
+    useEffect(() => {
+        getCommentsByArticle(article_id,setThisArticleComments,setIsLoading,setErrState)
+    }, [article_id])
 
-    return errState?(
+    return errState ? (
         <p>There doesn't seem to be anything here...</p>
-    ):isLoading?(
+    ) : isLoading ? (
         <p>Loading...</p>
-    ):(
+    ) : (
         <>
-            <ArticleCards article_id={article_id} showBody={true}/>
-            <form className='parent' onSubmit={(e)=>{
+            <ArticleCards article_id={article_id} showBody={true} />
+            <form className='parent' onSubmit={(e) => {
                 e.preventDefault()
-                if (commentInput){
-                    axios.post(`https://news-api-p73k.onrender.com/api/articles/${article_id}/comments`,{username:loggedInUser,body:commentInput})
-                    .then(res=>setThisArticleComments((curr)=>[res.data.comment,...curr]))
-                    .catch(err=>alert('Something went wrong posting your comment...'))
+                if (commentInput) {
+                    setCommentPending(true)
+                    postComment(article_id,loggedInUser,commentInput,setThisArticleComments,setCommentFeedback,setCommentPending)
+                } else {
+                    setCommentFeedback('Please enter a comment.')
+                    setTimeout(() => setCommentFeedback(''), 2000)
                 }
                 setCommentInput('')
-                document.getElementById('comment-input').value=''
+                document.getElementById('comment-input').value = ''
             }}>
                 <label id='comment-input-label' htmlFor='comment-input'>Post a comment:</label>
                 <div>
-                <textarea id='comment-input' onChange={(e)=>{
-                    setCommentInput(e.target.value)
-                }}></textarea>
+                    <textarea id='comment-input' onChange={(e) => {
+                        setCommentInput(e.target.value)
+                    }}></textarea>
                 </div>
-                <button type='submit'>{'>'}</button>
+                <div className='flex-div'>
+                    <p id='feedback'>{commentFeedback}</p>
+                    {commentPending ? (<ColorRing
+                        visible={true}
+                        height="20"
+                        width="20"
+                        ariaLabel="blocks-loading"
+                        wrapperStyle={{}}
+                        wrapperClass="blocks-wrapper"
+                        colors={['#ff0800', '#ff0800', '#ff0800', '#ff0800', '#ff0800']}
+                    />) : (<button type='submit'>{'>'}</button>)}
+                </div>
             </form>
-            <CommentCards comments={thisArticleComments}/>
+            <CommentCards comments={thisArticleComments} />
         </>
     )
 }

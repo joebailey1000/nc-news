@@ -2,21 +2,12 @@ import { useState } from "react"
 import { Link } from "react-router-dom"
 import comment from './assets/comment.png'
 import axios from "axios"
+import { upDownVote } from "./utils/axios"
 
 export const ArticleCard = ({ articles, article, showBody, index }) => {
 
     const [votes, setVotes] = useState(article.votes)
     const [hasVoted, setHasVoted] = useState(false)
-
-    function pingVotes(increment, article) {
-        setVotes(votes + increment)
-        return axios.patch(`https://news-api-p73k.onrender.com/api/articles/${article.article_id}`, { inc_votes: increment })
-            .catch(err => {
-                setVotes(votes)
-                alert('Something went wrong processing your vote...')
-                return err
-            })
-    }
 
     return (
         <div key={article.article_id} className={index === articles.length - 1 ? '' : 'article-card'}>
@@ -30,18 +21,18 @@ export const ArticleCard = ({ articles, article, showBody, index }) => {
                                 case 'up':
                                     button.style = ''
                                     setHasVoted(false)
-                                    pingVotes(-1, article)
+                                    upDownVote(-1, article,votes,setVotes)
                                     break
                                 case 'down':
                                     button.style = 'background-color:red'
                                     document.getElementById(`down${article.article_id}`).style = ''
                                     setHasVoted('up')
-                                    pingVotes(2, article)
+                                    upDownVote(2, article,votes,setVotes)
                                     break
                                 case false:
                                     button.style = 'background-color:red'
                                     setHasVoted('up')
-                                    pingVotes(1, article)
+                                    upDownVote(1, article,votes,setVotes)
                             }
                         }}>{'>'}</button>
                         <p className="vote-count">{votes}</p>
@@ -52,17 +43,17 @@ export const ArticleCard = ({ articles, article, showBody, index }) => {
                                     button.style = 'background-color:blue'
                                     document.getElementById(`up${article.article_id}`).style = ''
                                     setHasVoted('down')
-                                    pingVotes(-2, article)
+                                    upDownVote(-2, article,votes,setVotes)
                                     break
                                 case 'down':
                                     button.style = ''
                                     setHasVoted(false)
-                                    pingVotes(1, article)
+                                    upDownVote(1, article,votes,setVotes)
                                     break
                                 case false:
                                     button.style = 'background-color:blue'
                                     setHasVoted('down')
-                                    pingVotes(-1, article)
+                                    upDownVote(-1, article,votes,setVotes)
                             }
                         }}>{'<'}</button>
                     </div>
