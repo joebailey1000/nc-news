@@ -1,6 +1,5 @@
 import { useParams } from 'react-router-dom'
 import { useEffect, useState } from 'react'
-import axios from 'axios'
 import { ArticleCards } from './ArticleCards'
 import { CommentCards } from './CommentCards'
 import { ColorRing } from 'react-loader-spinner'
@@ -8,7 +7,7 @@ import { getCommentsByArticle, postComment } from './utils/axios'
 
 export const SingleArticle = ({ loggedInUser }) => {
     const [thisArticleComments, setThisArticleComments] = useState([])
-    const [isLoading, setIsLoading] = useState(true)
+    const [isLoading, setIsLoading] = useState(false)
     const [errState, setErrState] = useState(false)
     const { article_id } = useParams()
     const [commentPending, setCommentPending] = useState(false)
@@ -17,6 +16,7 @@ export const SingleArticle = ({ loggedInUser }) => {
     const [commentInput, setCommentInput] = useState('')
 
     useEffect(() => {
+        setIsLoading(true)
         getCommentsByArticle(article_id,setThisArticleComments,setIsLoading,setErrState)
     }, [article_id])
 
