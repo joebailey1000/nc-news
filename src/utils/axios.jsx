@@ -31,13 +31,21 @@ const postComment = (article_id, loggedInUser, commentInput, setThisArticleComme
         })
 }
 
-const getArticles = (setArticles, setIsLoading, article_id, slug) => {
+const getArticles = (setArticles, setIsLoading, slug, sortBy,queryOrder) => {
     let queryString = 'https://news-api-p73k.onrender.com/api/articles'
-    if (article_id) queryString += `/${article_id}`
-    if (slug) queryString += `?topic=${slug}`
+    queryString+=`?sort_by=${sortBy}&order=${queryOrder}`
+    if (slug) queryString += `&topic=${slug}`
+    console.log(queryString)
     axios.get(queryString)
         .then(res => {
-            console.log(res)
+            setArticles(res.data.articles)
+            setIsLoading(false)
+        })
+}
+
+const getSingleArticle=(setArticles, setIsLoading, article_id)=>{
+    axios.get(`https://news-api-p73k.onrender.com/api/articles/${article_id}`)
+        .then(res => {
             if (article_id) setArticles([res.data.article])
             else setArticles(res.data.articles)
             setIsLoading(false)
@@ -54,4 +62,4 @@ const upDownVote = (increment,article,votes,setVotes) =>{
             })
 }
 
-export { getTopics, getCommentsByArticle, postComment, getArticles,upDownVote }
+export { getTopics, getCommentsByArticle, postComment, getArticles,getSingleArticle,upDownVote }
