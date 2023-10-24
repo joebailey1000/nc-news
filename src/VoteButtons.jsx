@@ -1,52 +1,57 @@
 import { useState } from "react"
-import { upDownVote } from "./utils/axios"
 
-export const VoteButtons = ({article}) => {
-    const [votes, setVotes] = useState(article.votes)
+export const VoteButtons = ({article,upDownVote}) => {
+    const [votes, setVotes] = useState(0)
     const [hasVoted, setHasVoted] = useState(false)
     return (
         <div className="vertical-div">
-            <button className="vote-button-up" id={`up${article.article_id}`} onClick={(e) => {
+            <button className="vote-button-up" id={`up${article.comment_id||article.article_id}`} onClick={(e) => {
                 e.preventDefault()
-                const button = document.getElementById(`up${article.article_id}`)
+                const button = document.getElementById(`up${article.comment_id||article.article_id}`)
                 switch (hasVoted) {
                     case 'up':
                         button.style = ''
                         setHasVoted(false)
-                        upDownVote(-1, article, votes, setVotes)
+                        setVotes(0)
+                        upDownVote(-1, article)
                         break
                     case 'down':
                         button.style = 'background-color:red'
-                        document.getElementById(`down${article.article_id}`).style = ''
+                        document.getElementById(`down${article.comment_id||article.article_id}`).style = ''
                         setHasVoted('up')
-                        upDownVote(2, article, votes, setVotes)
+                        setVotes(1)
+                        upDownVote(2, article)
                         break
                     case false:
                         button.style = 'background-color:red'
                         setHasVoted('up')
-                        upDownVote(1, article, votes, setVotes)
+                        setVotes(1)
+                        upDownVote(1, article)
                 }
             }}>{'>'}</button>
-            <p className="vote-count">{votes}</p>
-            <button className="vote-button-down" id={`down${article.article_id}`} onClick={(e) => {
+            <p className="vote-count">{article.votes+votes}</p>
+            <button className="vote-button-down" id={`down${article.comment_id||article.article_id}`} onClick={(e) => {
                 e.preventDefault()
-                const button = document.getElementById(`down${article.article_id}`)
+                const button = document.getElementById(`down${article.comment_id||article.article_id}`)
                 switch (hasVoted) {
                     case 'up':
                         button.style = 'background-color:blue'
-                        document.getElementById(`up${article.article_id}`).style = ''
+                        document.getElementById(`up${article.comment_id||article.article_id}`).style = ''
                         setHasVoted('down')
-                        upDownVote(-2, article, votes, setVotes)
+                        setVotes(-1)
+                        upDownVote(-2, article)
                         break
                     case 'down':
                         button.style = ''
                         setHasVoted(false)
-                        upDownVote(1, article, votes, setVotes)
+                        setVotes(0)
+                        upDownVote(1, article)
                         break
                     case false:
                         button.style = 'background-color:blue'
                         setHasVoted('down')
-                        upDownVote(-1, article, votes, setVotes)
+                        setVotes(-1)
+                        upDownVote(-1, article)
                 }
             }}>{'<'}</button>
         </div>

@@ -27,7 +27,7 @@ export const SingleArticle = ({ loggedInUser }) => {
     ) : (
         <>
             <ArticleCards article_id={article_id} showBody={true} />
-            <form className='parent' onSubmit={(e) => {
+            {loggedInUser?(<form className='parent' onSubmit={(e) => {
                 e.preventDefault()
                 if (commentInput) {
                     setCommentPending(true)
@@ -57,7 +57,7 @@ export const SingleArticle = ({ loggedInUser }) => {
                         colors={['#ff0800', '#ff0800', '#ff0800', '#ff0800', '#ff0800']}
                     />) : (<button type='submit'>{'>'}</button>)}
                 </div>
-            </form>
+            </form>):''}
             <CommentCards comments={thisArticleComments} />
         </>
     )

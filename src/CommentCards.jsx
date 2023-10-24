@@ -1,3 +1,6 @@
+import { VoteButtons } from "./VoteButtons"
+import { upDownVoteComment } from "./utils/axios"
+
 export const CommentCards = ({ comments }) => {
     return (
         <div className="parent">
@@ -7,9 +10,8 @@ export const CommentCards = ({ comments }) => {
                         <div className="flex-div">
                             <p>{comment.body}</p>
                             <div className="vertical-div">
-                                <button className="vote-button-up">{'>'}</button>
-                                <p className="vote-count">{comment.votes}</p>
-                                <button className="vote-button-down">{'<'}</button>
+                                <VoteButtons upDownVote={upDownVoteComment} article={comment}/>
+
                             </div>
                         </div>
                         <div className="flex-div">
