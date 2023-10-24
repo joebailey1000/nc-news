@@ -83,3 +83,17 @@ html{
 #feedback{
     margin:0
 }
+
+.delete-comment{
+    border-radius: 50%;
+    background-color: red;
+    color:white;
+    font-weight: 1000;
+    border:solid black 1px;
+    height:20px;
+    width:20px
+}
+
+.delete-comment:active {
+    background-color: #c50000;
+  }

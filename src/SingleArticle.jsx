@@ -58,7 +58,7 @@ export const SingleArticle = ({ loggedInUser }) => {
                     />) : (<button type='submit'>{'>'}</button>)}
                 </div>
             </form>):''}
-            <CommentCards comments={thisArticleComments} />
+            <CommentCards loggedInUser={loggedInUser} comments={thisArticleComments} setThisArticleComments={setThisArticleComments}/>
         </>
     )
 }

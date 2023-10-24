@@ -1,4 +1,3 @@
 TO DO:
 include sorting in the URL query
-implement votes on comments
 fix optimistic rendering procedure for when a vote request fails
