@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom"
 import comment from './assets/comment.png'
 import { VoteButtons } from "./VoteButtons"
+import { upDownVoteArticle } from "./utils/axios"
 
 export const ArticleCard = ({ articles, article, showBody, index }) => {
     return (
@@ -8,7 +9,7 @@ export const ArticleCard = ({ articles, article, showBody, index }) => {
             <div className="vertical-div">
                 <div className="flex-div">
                     <h4><Link to={`/articles/${article.article_id}`} >{article.title}</Link></h4>
-                    <VoteButtons article={article}/>
+                    <VoteButtons upDownVote={upDownVoteArticle} article={article}/>
                 </div>
                 {showBody ? (
                     <>

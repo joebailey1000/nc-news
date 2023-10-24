@@ -52,7 +52,7 @@ const getSingleArticle=(setArticles, setIsLoading, article_id)=>{
         })
 }
 
-const upDownVote = (increment,article,votes,setVotes) =>{
+const upDownVoteArticle = (increment,article,votes,setVotes) =>{
     setVotes(votes + increment)
         return axios.patch(`https://news-api-p73k.onrender.com/api/articles/${article.article_id}`, { inc_votes: increment })
             .catch(err => {
@@ -62,4 +62,14 @@ const upDownVote = (increment,article,votes,setVotes) =>{
             })
 }
 
-export { getTopics, getCommentsByArticle, postComment, getArticles,getSingleArticle,upDownVote }
+const upDownVoteComment=(increment,comment,votes,setVotes)=>{
+    setVotes(votes + increment)
+        return axios.patch(`https://news-api-p73k.onrender.com/api/comments/${comment.comment_id}`, { inc_votes: increment })
+            .catch(err => {
+                setVotes(votes)
+                alert('Something went wrong processing your vote...')
+                return err
+            })
+}
+
+export { getTopics, getCommentsByArticle, postComment, getArticles,getSingleArticle,upDownVoteArticle,upDownVoteComment }

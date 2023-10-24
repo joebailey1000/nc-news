@@ -1,14 +1,13 @@
 import { useState } from "react"
-import { upDownVote } from "./utils/axios"
 
-export const VoteButtons = ({article}) => {
+export const VoteButtons = ({article,upDownVote}) => {
     const [votes, setVotes] = useState(article.votes)
     const [hasVoted, setHasVoted] = useState(false)
     return (
         <div className="vertical-div">
-            <button className="vote-button-up" id={`up${article.article_id}`} onClick={(e) => {
+            <button className="vote-button-up" id={`up${article.body}`} onClick={(e) => {
                 e.preventDefault()
-                const button = document.getElementById(`up${article.article_id}`)
+                const button = document.getElementById(`up${article.body}`)
                 switch (hasVoted) {
                     case 'up':
                         button.style = ''
@@ -17,7 +16,7 @@ export const VoteButtons = ({article}) => {
                         break
                     case 'down':
                         button.style = 'background-color:red'
-                        document.getElementById(`down${article.article_id}`).style = ''
+                        document.getElementById(`down${article.body}`).style = ''
                         setHasVoted('up')
                         upDownVote(2, article, votes, setVotes)
                         break
@@ -28,13 +27,13 @@ export const VoteButtons = ({article}) => {
                 }
             }}>{'>'}</button>
             <p className="vote-count">{votes}</p>
-            <button className="vote-button-down" id={`down${article.article_id}`} onClick={(e) => {
+            <button className="vote-button-down" id={`down${article.body}`} onClick={(e) => {
                 e.preventDefault()
-                const button = document.getElementById(`down${article.article_id}`)
+                const button = document.getElementById(`down${article.body}`)
                 switch (hasVoted) {
                     case 'up':
                         button.style = 'background-color:blue'
-                        document.getElementById(`up${article.article_id}`).style = ''
+                        document.getElementById(`up${article.body}`).style = ''
                         setHasVoted('down')
                         upDownVote(-2, article, votes, setVotes)
                         break
