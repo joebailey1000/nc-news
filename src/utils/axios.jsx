@@ -31,9 +31,9 @@ const postComment = (article_id, loggedInUser, commentInput, setThisArticleComme
         })
 }
 
-const getArticles = (setArticles, setIsLoading, slug, sortBy,queryOrder) => {
+const getArticles = (setArticles, setIsLoading, slug, sortBy, queryOrder) => {
     let queryString = 'https://news-api-p73k.onrender.com/api/articles'
-    queryString+=`?sort_by=${sortBy}&order=${queryOrder}`
+    queryString += `?sort_by=${sortBy}&order=${queryOrder}`
     if (slug) queryString += `&topic=${slug}`
     console.log(queryString)
     axios.get(queryString)
@@ -43,7 +43,7 @@ const getArticles = (setArticles, setIsLoading, slug, sortBy,queryOrder) => {
         })
 }
 
-const getSingleArticle=(setArticles, setIsLoading, article_id)=>{
+const getSingleArticle = (setArticles, setIsLoading, article_id) => {
     axios.get(`https://news-api-p73k.onrender.com/api/articles/${article_id}`)
         .then(res => {
             if (article_id) setArticles([res.data.article])
@@ -52,25 +52,29 @@ const getSingleArticle=(setArticles, setIsLoading, article_id)=>{
         })
 }
 
-const upDownVoteArticle = (increment,article) =>{
-        return axios.patch(`https://news-api-p73k.onrender.com/api/articles/${article.article_id}`, { inc_votes: increment })
-            .catch(err => {
-                alert('Something went wrong processing your vote...')
-                return err
-            })
+const upDownVoteArticle = (increment, article) => {
+    return axios.patch(`https://news-api-p73k.onrender.com/api/articles/${article.article_id}`, { inc_votes: increment })
+        .catch(err => {
+            alert('Something went wrong processing your vote...')
+            return err
+        })
 }
 
-const upDownVoteComment=(increment,comment)=>{
-        return axios.patch(`https://news-api-p73k.onrender.com/api/comments/${comment.comment_id}`, { inc_votes: increment })
-            .catch(err => {
-                alert('Something went wrong processing your vote...')
-                return err
-            })
+const upDownVoteComment = (increment, comment) => {
+    return axios.patch(`https://news-api-p73k.onrender.com/api/comments/${comment.comment_id}`, { inc_votes: increment })
+        .catch(err => {
+            alert('Something went wrong processing your vote...')
+            return err
+        })
 }
 
-const getUsers=()=>{
+const getUsers = () => {
     return axios.get('https://news-api-p73k.onrender.com/api/users')
-        .then((res)=>res.data.users)
+        .then((res) => res.data.users)
 }
 
-export { getTopics, getCommentsByArticle, postComment, getArticles,getSingleArticle,upDownVoteArticle,upDownVoteComment,getUsers }
+const deleteComment = (comment) => {
+    return axios.delete(`https://news-api-p73k.onrender.com/api/comments/${comment.comment_id}`)
+}
+
+export { getTopics, getCommentsByArticle, postComment, getArticles, getSingleArticle, upDownVoteArticle, upDownVoteComment, getUsers, deleteComment }
