@@ -1,9 +1,9 @@
 export const CommentCards = ({ comments }) => {
     return (
         <div className="parent">
-            {comments.map(comment => {
+            {comments.map((comment, index) => {
                 return (
-                    <div key={comment.comment_id} className="article-card">
+                    <div key={comment.comment_id} className={index===comments.length-1?'':'article-card'}>
                         <div className="flex-div">
                             <p>{comment.body}</p>
                             <div className="vertical-div">
