@@ -30,16 +30,19 @@ export const SingleArticle=({loggedInUser})=>{
             <ArticleCards article_id={article_id} showBody={true}/>
             <form className='parent' onSubmit={(e)=>{
                 e.preventDefault()
-                axios.post(`https://news-api-p73k.onrender.com/api/articles/${article_id}/comments`,{username:loggedInUser,body:commentInput})
+                if (commentInput){
+                    axios.post(`https://news-api-p73k.onrender.com/api/articles/${article_id}/comments`,{username:loggedInUser,body:commentInput})
                     .then(res=>setThisArticleComments((curr)=>[res.data.comment,...curr]))
-                    .catch(err=>console.log(err))
+                    .catch(err=>alert('Something went wrong posting your comment...'))
+                }
                 setCommentInput('')
+                document.getElementById('comment-input').value=''
             }}>
                 <label id='comment-input-label' htmlFor='comment-input'>Post a comment:</label>
                 <div>
                 <textarea id='comment-input' onChange={(e)=>{
                     setCommentInput(e.target.value)
-                }}>{commentInput}</textarea>
+                }}></textarea>
                 </div>
                 <button type='submit'>{'>'}</button>
             </form>
