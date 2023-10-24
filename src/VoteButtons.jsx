@@ -1,7 +1,7 @@
 import { useState } from "react"
 
 export const VoteButtons = ({article,upDownVote}) => {
-    const [votes, setVotes] = useState(article.votes)
+    const [votes, setVotes] = useState(0)
     const [hasVoted, setHasVoted] = useState(false)
     return (
         <div className="vertical-div">
@@ -12,21 +12,24 @@ export const VoteButtons = ({article,upDownVote}) => {
                     case 'up':
                         button.style = ''
                         setHasVoted(false)
-                        upDownVote(-1, article, votes, setVotes)
+                        setVotes(0)
+                        upDownVote(-1, article)
                         break
                     case 'down':
                         button.style = 'background-color:red'
-                        document.getElementById(`down${article.comment_id||'a'+article.article_id}`).style = ''
+                        document.getElementById(`down${article.comment_id||article.article_id}`).style = ''
                         setHasVoted('up')
-                        upDownVote(2, article, votes, setVotes)
+                        setVotes(1)
+                        upDownVote(2, article)
                         break
                     case false:
                         button.style = 'background-color:red'
                         setHasVoted('up')
-                        upDownVote(1, article, votes, setVotes)
+                        setVotes(1)
+                        upDownVote(1, article)
                 }
             }}>{'>'}</button>
-            <p className="vote-count">{votes}</p>
+            <p className="vote-count">{article.votes+votes}</p>
             <button className="vote-button-down" id={`down${article.comment_id||article.article_id}`} onClick={(e) => {
                 e.preventDefault()
                 const button = document.getElementById(`down${article.comment_id||article.article_id}`)
@@ -35,17 +38,20 @@ export const VoteButtons = ({article,upDownVote}) => {
                         button.style = 'background-color:blue'
                         document.getElementById(`up${article.comment_id||article.article_id}`).style = ''
                         setHasVoted('down')
-                        upDownVote(-2, article, votes, setVotes)
+                        setVotes(-1)
+                        upDownVote(-2, article)
                         break
                     case 'down':
                         button.style = ''
                         setHasVoted(false)
-                        upDownVote(1, article, votes, setVotes)
+                        setVotes(0)
+                        upDownVote(1, article)
                         break
                     case false:
                         button.style = 'background-color:blue'
                         setHasVoted('down')
-                        upDownVote(-1, article, votes, setVotes)
+                        setVotes(-1)
+                        upDownVote(-1, article)
                 }
             }}>{'<'}</button>
         </div>

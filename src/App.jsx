@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import { Header } from './Header'
 import { ArticleCards } from './ArticleCards'
 import { Routes, Route, Link } from 'react-router-dom'
@@ -7,12 +7,12 @@ import { TopicMenu } from './TopicMenu'
 
 
 function App() {
-  const [loggedInUser,setLoggedInUser]=useState('grumpy19')
+  const [loggedInUser,setLoggedInUser]=useState(false)
 
   
   return (
     <>
-      <Header />
+      <Header loggedInUser={loggedInUser} setLoggedInUser={setLoggedInUser}/>
       <Link to='articles'>to articles</Link>
       <Link to='topics'>to topics</Link>
       <Routes>
