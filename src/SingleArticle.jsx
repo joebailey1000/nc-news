@@ -4,6 +4,7 @@ import { ArticleCards } from './ArticleCards'
 import { CommentCards } from './CommentCards'
 import { ColorRing } from 'react-loader-spinner'
 import { getCommentsByArticle, postComment } from './utils/axios'
+import { PageSwitcher } from './PageSwitcher'
 
 export const SingleArticle = ({ loggedInUser }) => {
   const [thisArticleComments, setThisArticleComments] = useState([])
@@ -12,13 +13,13 @@ export const SingleArticle = ({ loggedInUser }) => {
   const { article_id } = useParams()
   const [commentPending, setCommentPending] = useState(false)
   const [commentFeedback, setCommentFeedback] = useState('')
-
+  const [pageNumber,setPageNumber]=useState(1)
   const [commentInput, setCommentInput] = useState('')
 
   useEffect(() => {
     setIsLoading(true)
-    getCommentsByArticle(article_id, setThisArticleComments, setIsLoading, setErrState)
-  }, [article_id])
+    getCommentsByArticle(article_id, setThisArticleComments, setIsLoading, setErrState,pageNumber)
+  }, [article_id,pageNumber])
 
   return errState ? (
     <p>There doesn't seem to be anything here...</p>
@@ -63,9 +64,10 @@ export const SingleArticle = ({ loggedInUser }) => {
           return (
             <CommentCards loggedInUser={loggedInUser} comment={comment} index={index} comments={thisArticleComments} setThisArticleComments={setThisArticleComments} />
           )
-      })}
+        })}
+        <PageSwitcher pageNumber={pageNumber} setPageNumber={setPageNumber} pageLength={thisArticleComments.length}/>
       </div>
-      
+
     </>
   )
 }

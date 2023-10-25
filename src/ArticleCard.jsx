@@ -3,9 +3,9 @@ import comment from './assets/comment.png'
 import { VoteButtons } from "./VoteButtons"
 import { upDownVoteArticle } from "./utils/axios"
 
-export const ArticleCard = ({ articles, article, showBody, index }) => {
+export const ArticleCard = ({ article, showBody}) => {
   return (
-    <div key={article.article_id} className={index === articles.length - 1 ? '' : 'article-card'}>
+    <div key={article.article_id} className='article-card'>
       <div className="vertical-div">
         <div className="flex-div">
           <h4><Link to={`/articles/${article.article_id}`} >{article.title}</Link></h4>
