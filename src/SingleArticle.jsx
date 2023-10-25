@@ -1,4 +1,4 @@
-import { useParams } from 'react-router-dom'
+import { useParams, useSearchParams } from 'react-router-dom'
 import { useEffect, useState } from 'react'
 import { ArticleCards } from './ArticleCards'
 import { CommentCards } from './CommentCards'
@@ -7,18 +7,20 @@ import { getCommentsByArticle, postComment } from './utils/axios'
 import { PageSwitcher } from './PageSwitcher'
 
 export const SingleArticle = ({ loggedInUser }) => {
+  const [searchParams,setSearchParams]=useSearchParams()
   const [thisArticleComments, setThisArticleComments] = useState([])
   const [isLoading, setIsLoading] = useState(false)
   const [errState, setErrState] = useState(false)
   const { article_id } = useParams()
   const [commentPending, setCommentPending] = useState(false)
   const [commentFeedback, setCommentFeedback] = useState('')
-  const [pageNumber,setPageNumber]=useState(1)
+  const [pageNumber,setPageNumber]=useState(+(searchParams.get('p'))||1)
   const [commentInput, setCommentInput] = useState('')
 
   useEffect(() => {
     setIsLoading(true)
     getCommentsByArticle(article_id, setThisArticleComments, setIsLoading, setErrState,pageNumber)
+    setSearchParams({'p':pageNumber})
   }, [article_id,pageNumber])
 
   return errState ? (

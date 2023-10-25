@@ -4,9 +4,11 @@ import { ArticleCard } from "./ArticleCard"
 import { useParams } from "react-router-dom"
 import { getArticles, getSingleArticle } from "./utils/axios"
 import { PageSwitcher } from "./PageSwitcher"
+import { useSearchParams } from "react-router-dom"
 
 export const ArticleCards = ({ article_id, showBody }) => {
 
+  const [searchParams, setSearchParams] = useSearchParams()
   const { slug } = useParams()
   const [articles, setArticles] = useState([])
   const [isLoading, setIsLoading] = useState(true)
@@ -17,12 +19,19 @@ export const ArticleCards = ({ article_id, showBody }) => {
   function pingForArticles() {
     setIsLoading(true)
     if (article_id) getSingleArticle(setArticles, setIsLoading, article_id)
-    else getArticles(setArticles, setIsLoading, slug, sortBy, queryOrder,pageNumber)
+    else {
+      getArticles(setArticles, setIsLoading, slug, sortBy, queryOrder, pageNumber)
+      setSearchParams({
+        sort_by: sortBy,
+        order: queryOrder,
+        p: pageNumber
+      })
+    }
     setSortBy('created_at')
     setQueryOrder('desc')
   }
 
-  useEffect(pingForArticles, [slug, article_id,pageNumber])
+  useEffect(pingForArticles, [slug, article_id, pageNumber])
 
   return (
 
@@ -47,7 +56,7 @@ export const ArticleCards = ({ article_id, showBody }) => {
       {isLoading ? (<p>Loading...</p>) : articles.map((article) => {
         return (<ArticleCard showBody={showBody} article={article} key={article.article_id} />)
       })}
-      {article_id ? '' : (<PageSwitcher pageNumber={pageNumber} setPageNumber={setPageNumber} pageLength={articles.length}/>)}
+      {article_id ? '' : (<PageSwitcher pageNumber={pageNumber} setPageNumber={setPageNumber} pageLength={articles.length} />)}
     </div>
   )
 }
