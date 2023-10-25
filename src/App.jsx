@@ -20,6 +20,7 @@ function App() {
         <Route path='/articles/:article_id' element={<SingleArticle loggedInUser={loggedInUser}/>} />
         <Route path='/topics' element={<TopicMenu/>} />
         <Route path='/topics/:slug' element={<ArticleCards/>}/>
+        <Route path='/*' element={<p>It doesn't look like that page exists...</p>}/>
       </Routes>
     </>
   )
