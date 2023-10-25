@@ -8,8 +8,8 @@ const getTopics = (setIsLoading, setTopics) => {
     })
 }
 
-const getCommentsByArticle = (article_id, setThisArticleComments, setIsLoading, setErrState) => {
-  axios.get(`https://news-api-p73k.onrender.com/api/articles/${article_id}/comments`)
+const getCommentsByArticle = (article_id, setThisArticleComments, setIsLoading, setErrState,pageNumber) => {
+  axios.get(`https://news-api-p73k.onrender.com/api/articles/${article_id}/comments?p=${pageNumber}`)
     .then(res => {
       setThisArticleComments(res.data.comments)
       setIsLoading(false)
@@ -31,11 +31,10 @@ const postComment = (article_id, loggedInUser, commentInput, setThisArticleComme
     })
 }
 
-const getArticles = (setArticles, setIsLoading, slug, sortBy, queryOrder) => {
+const getArticles = (setArticles, setIsLoading, slug, sortBy, queryOrder,pageNumber) => {
   let queryString = 'https://news-api-p73k.onrender.com/api/articles'
-  queryString += `?sort_by=${sortBy}&order=${queryOrder}`
+  queryString += `?sort_by=${sortBy}&order=${queryOrder}&p=${pageNumber}`
   if (slug) queryString += `&topic=${slug}`
-  console.log(queryString)
   axios.get(queryString)
     .then(res => {
       setArticles(res.data.articles)
