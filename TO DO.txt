@@ -1,3 +1,4 @@
 TO DO:
 include sorting in the URL query
 fix optimistic rendering procedure for when a vote request fails
+replace alerts with popups wherever possible

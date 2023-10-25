@@ -1,36 +1,43 @@
 import { VoteButtons } from "./VoteButtons"
-import { upDownVoteComment } from "./utils/axios"
-import { deleteComment } from "./utils/axios"
+import { upDownVoteComment, deleteComment } from "./utils/axios"
+import { useState } from "react"
+import { ColorRing } from "react-loader-spinner"
 
-export const CommentCards = ({ comments,loggedInUser, setThisArticleComments }) => {
-    return (
-        <div className="parent">
-            {comments.map((comment, index) => {
-                return (
-                    <div key={comment.comment_id} className={index === comments.length - 1 ? '' : 'article-card'}>
-                        <div className="flex-div">
-                            <p>{comment.body}</p>
-                            <div className="vertical-div">
-                                <VoteButtons upDownVote={upDownVoteComment} article={comment} />
+export const CommentCards = ({ comments, comment, index, loggedInUser, setThisArticleComments }) => {
+  const [deletePending, setDeletePending] = useState(false)
 
-                            </div>
-                        </div>
-                        <div className="flex-div">
-                            <p className="de-emphasise">{comment.author}</p>
-                            <p className="de-emphasise">{comment.created_at.slice(0, 10)}</p>
-                            <div>
-                            {loggedInUser===comment.author?(<button onClick={()=>{
-                                if (confirm('Delete this comment?')){
-                                    deleteComment(comment)
-                                        .then(()=>alert('Comment deleted successfully.'))
-                                    setThisArticleComments(comments.filter(c=>c.comment_id!==comment.comment_id))
-                                }
-                            }} className='delete-comment'>x</button>):''}
-                            </div>
-                        </div>
-                    </div>
-                )
-            })}
-        </div>
-    )
+  return (
+    <article key={comment.comment_id} className={index === comments.length - 1 ? '' : 'article-card'}>
+      <section className="flex-div">
+        <p>{comment.body}</p>
+          <VoteButtons upDownVote={upDownVoteComment} article={comment} />
+      </section>
+      <section className="flex-div">
+        <p className="de-emphasise">{comment.author}</p>
+        <p className="de-emphasise">{comment.created_at.slice(0, 10)}</p>
+          {loggedInUser === comment.author ? deletePending ? (<ColorRing
+            className='delete-spinner'
+            visible={true}
+            height="20"
+            width="20"
+            ariaLabel="blocks-loading"
+            wrapperStyle={{'margin-top':'19px'}}
+            wrapperClass="blocks-wrapper"
+            colors={['#ff0800', '#ff0800', '#ff0800', '#ff0800', '#ff0800']}
+          />) : (<button onClick={() => {
+            if (confirm('Delete this comment?')) {
+              setDeletePending(true)
+              deleteComment(comment)
+                .then(() => {
+                  setDeletePending(false)
+                  alert('Comment deleted successfully.')
+                  setThisArticleComments(comments.filter(c => c.comment_id !== comment.comment_id))
+                }).catch(err=>alert('Something went wrong deleting your comment...'))
+              
+            }
+          }} className='delete-comment'>x</button>) : ''}
+      </section>
+    </article>
+  )
+
 }
