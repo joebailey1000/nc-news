@@ -7,6 +7,7 @@ import { TopicMenu } from './TopicMenu'
 import { LogIn } from './LogIn'
 import { Profile } from './Profile'
 import { HomePage } from './HomePage'
+import { SubHeader } from './SubHeader'
 
 
 function App() {
@@ -16,8 +17,8 @@ function App() {
   return (
     <>
       <Header loggedInUser={loggedInUser} setLoggedInUser={setLoggedInUser}/>
-      <Link to='articles'>to articles</Link>
-      <Link to='topics'>to topics</Link>
+      <SubHeader/>
+
       <Routes>
         <Route path='/' element={<HomePage loggedInUser={loggedInUser}/>}/>
         <Route path='/profile' element={<Profile loggedInUser={loggedInUser}/>}/>
