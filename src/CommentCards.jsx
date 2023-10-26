@@ -9,11 +9,11 @@ export const CommentCards = ({ comments, comment, loggedInUser, setThisArticleCo
   return (
     <article key={comment.comment_id} className='article-card'>
       <section className="flex-div">
-        <p>{comment.body}</p>
+        <p className="usr-msg">{comment.body}</p>
           <VoteButtons upDownVote={upDownVoteComment} article={comment} />
       </section>
       <section className="flex-div">
-        <p className="de-emphasise">{comment.author}</p>
+        <p className="de-emphasise usr-msg">{comment.author}</p>
         <p className="de-emphasise">{comment.created_at.slice(0, 10)}</p>
           {loggedInUser === comment.author ? deletePending ? (<ColorRing
             className='delete-spinner'

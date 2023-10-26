@@ -5,6 +5,8 @@ import { Routes, Route, Link } from 'react-router-dom'
 import { SingleArticle } from './SingleArticle'
 import { TopicMenu } from './TopicMenu'
 import { LogIn } from './LogIn'
+import { Profile } from './Profile'
+import { HomePage } from './HomePage'
 
 
 function App() {
@@ -17,6 +19,8 @@ function App() {
       <Link to='articles'>to articles</Link>
       <Link to='topics'>to topics</Link>
       <Routes>
+        <Route path='/' element={<HomePage loggedInUser={loggedInUser}/>}/>
+        <Route path='/profile' element={<Profile loggedInUser={loggedInUser}/>}/>
         <Route path='/articles' element={<ArticleCards/>} />
         <Route path='/articles/:article_id' element={<SingleArticle loggedInUser={loggedInUser}/>} />
         <Route path='/topics' element={<TopicMenu/>} />

@@ -1,19 +1,23 @@
 
 import { Link } from "react-router-dom"
+import { useNavigate } from "react-router-dom"
 
 export const Header = ({ loggedInUser, setLoggedInUser }) => {
-
+  const navigate=useNavigate()
 
   return (
-    <div className="flex-div">
-      <h1>NC NEWS</h1>
+    <div className="flex-div header">
+      <Link to='/'><h1>NC NEWS</h1></Link>
       {loggedInUser ? (
-        <>
-          <h4>Welcome {loggedInUser}!</h4>
-          <button onClick={() => setLoggedInUser(false)}>Log Out</button>
-        </>
+        <div className="log-in-button">
+          <Link className='log-in-button' to='/profile'>Profile</Link>
+          <button onClick={() => {
+            setLoggedInUser(false)
+            navigate('')
+            }}>Log Out</button>
+        </div>
       ) : (
-        <Link to='/login'>Log In</Link>
+        <Link className='log-in-button' to='/login'>Log In</Link>
       )}
 
     </div>
