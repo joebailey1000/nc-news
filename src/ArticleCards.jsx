@@ -14,13 +14,14 @@ export const ArticleCards = ({ article_id, showBody }) => {
   const [isLoading, setIsLoading] = useState(true)
   const [sortBy, setSortBy] = useState('created_at')
   const [queryOrder, setQueryOrder] = useState('desc')
-  const [pageNumber, setPageNumber] = useState(1)
+  const [pageNumber, setPageNumber] = useState(searchParams.get('p')||1)
+  const [notFound,setNotFound]=useState(false)
 
   function pingForArticles() {
     setIsLoading(true)
-    if (article_id) getSingleArticle(setArticles, setIsLoading, article_id)
+    if (article_id) getSingleArticle(setArticles, setIsLoading, article_id, setNotFound)
     else {
-      getArticles(setArticles, setIsLoading, slug, sortBy, queryOrder, pageNumber)
+      getArticles(setArticles, setIsLoading, slug, sortBy, queryOrder, pageNumber, setNotFound)
       setSearchParams({
         sort_by: sortBy,
         order: queryOrder,
@@ -53,7 +54,7 @@ export const ArticleCards = ({ article_id, showBody }) => {
         </select>
         <button type='submit'>Go</button>
       </form>)}
-      {isLoading ? (<p>Loading...</p>) : articles.map((article) => {
+      {notFound?(<p>There doesn't seem to be anything here...</p>):isLoading ? (<p>Loading...</p>) : articles.map((article) => {
         return (<ArticleCard showBody={showBody} article={article} key={article.article_id} />)
       })}
       {article_id ? '' : (<PageSwitcher pageNumber={pageNumber} setPageNumber={setPageNumber} pageLength={articles.length} />)}

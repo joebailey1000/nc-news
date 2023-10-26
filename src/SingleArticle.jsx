@@ -16,6 +16,7 @@ export const SingleArticle = ({ loggedInUser }) => {
   const [commentFeedback, setCommentFeedback] = useState('')
   const [pageNumber,setPageNumber]=useState(+(searchParams.get('p'))||1)
   const [commentInput, setCommentInput] = useState('')
+  const [commentsNotFound,setCommentsNotFound]=useState(false)
 
   useEffect(() => {
     setIsLoading(true)

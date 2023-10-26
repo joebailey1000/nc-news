@@ -14,7 +14,7 @@ const getCommentsByArticle = (article_id, setThisArticleComments, setIsLoading, 
       setThisArticleComments(res.data.comments)
       setIsLoading(false)
     })
-    .catch(err => setErrState(err))
+    .catch(err => setErrState(true))
 }
 
 const postComment = (article_id, loggedInUser, commentInput, setThisArticleComments, setCommentFeedback, setCommentPending) => {
@@ -31,7 +31,7 @@ const postComment = (article_id, loggedInUser, commentInput, setThisArticleComme
     })
 }
 
-const getArticles = (setArticles, setIsLoading, slug, sortBy, queryOrder,pageNumber) => {
+const getArticles = (setArticles, setIsLoading, slug, sortBy, queryOrder,pageNumber,setNotFound) => {
   let queryString = 'https://news-api-p73k.onrender.com/api/articles'
   queryString += `?sort_by=${sortBy}&order=${queryOrder}&p=${pageNumber}`
   if (slug) queryString += `&topic=${slug}`
@@ -39,16 +39,16 @@ const getArticles = (setArticles, setIsLoading, slug, sortBy, queryOrder,pageNum
     .then(res => {
       setArticles(res.data.articles)
       setIsLoading(false)
-    })
+    }).catch(()=>setNotFound(true))
 }
 
-const getSingleArticle = (setArticles, setIsLoading, article_id) => {
+const getSingleArticle = (setArticles, setIsLoading, article_id, setNotFound) => {
   axios.get(`https://news-api-p73k.onrender.com/api/articles/${article_id}`)
     .then(res => {
       if (article_id) setArticles([res.data.article])
       else setArticles(res.data.articles)
       setIsLoading(false)
-    })
+    }).catch(()=>setNotFound(true))
 }
 
 const upDownVoteArticle = (increment, article) => {
