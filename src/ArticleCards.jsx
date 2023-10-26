@@ -7,15 +7,15 @@ import { PageSwitcher } from "./PageSwitcher"
 import { useSearchParams } from "react-router-dom"
 
 export const ArticleCards = ({ article_id, showBody }) => {
-
-  const [searchParams, setSearchParams] = useSearchParams()
   const { slug } = useParams()
   const [articles, setArticles] = useState([])
   const [isLoading, setIsLoading] = useState(true)
   const [sortBy, setSortBy] = useState('created_at')
   const [queryOrder, setQueryOrder] = useState('desc')
-  const [pageNumber, setPageNumber] = useState(searchParams.get('p')||1)
+  const [pageNumber, setPageNumber] = useState(1)
   const [notFound,setNotFound]=useState(false)
+
+  const [searchParams, setSearchParams] = useSearchParams({sort_by:'created_at',order:'desc',p:pageNumber})
 
   function pingForArticles() {
     setIsLoading(true)
@@ -28,32 +28,33 @@ export const ArticleCards = ({ article_id, showBody }) => {
         p: pageNumber
       })
     }
-    setSortBy('created_at')
-    setQueryOrder('desc')
   }
 
-  useEffect(pingForArticles, [slug, article_id, pageNumber])
+  useEffect(pingForArticles, [slug, article_id, pageNumber, sortBy,queryOrder])
 
   return (
 
     <div className='parent' >
-      {article_id ? '' : (<form className="article-card" onSubmit={(e) => {
-        e.preventDefault()
-        setPageNumber(1)
-        pingForArticles()
-      }}>
+      {article_id ? '' : (<form className="article-card">
         <label htmlFor="sort-by">Sort by: </label>
-        <select onChange={(e) => setSortBy(e.target.value)}>
+        <select onChange={(e) => {
+            setSortBy(e.target.value)
+            console.log(sortBy)
+            setPageNumber(1)
+          }}>
           <option value='created_at'>Date</option>
           <option value='comment_count'>Comment count</option>
           <option value='votes'>Votes</option>
         </select>
-        <select onChange={(e) => setQueryOrder(e.target.value)}>
+        <select onChange={(e) => {
+            setQueryOrder(e.target.value)
+            setPageNumber(1)
+          }}>
           <option value='desc'>Descending</option>
           <option value='asc'>Ascending</option>
         </select>
-        <button type='submit'>Go</button>
-      </form>)}
+      </form>
+      )}
       {notFound?(<p>There doesn't seem to be anything here...</p>):isLoading ? (<p>Loading...</p>) : articles.map((article) => {
         return (<ArticleCard showBody={showBody} article={article} key={article.article_id} />)
       })}

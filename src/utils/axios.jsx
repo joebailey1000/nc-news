@@ -8,11 +8,10 @@ const getTopics = (setIsLoading, setTopics) => {
     })
 }
 
-const getCommentsByArticle = (article_id, setThisArticleComments, setIsLoading, setErrState,pageNumber) => {
-  axios.get(`https://news-api-p73k.onrender.com/api/articles/${article_id}/comments?p=${pageNumber}`)
+const getCommentsByArticle = (article_id, setThisArticleComments, setErrState,pageNumber) => {
+  return axios.get(`https://news-api-p73k.onrender.com/api/articles/${article_id}/comments?p=${pageNumber}`)
     .then(res => {
       setThisArticleComments(res.data.comments)
-      setIsLoading(false)
     })
     .catch(err => setErrState(true))
 }

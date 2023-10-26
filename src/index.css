@@ -110,3 +110,7 @@ html {
 .delete-comment:active {
   background-color: #c50000;
 }
+
+.usr-msg{
+  margin-left:10px
+}

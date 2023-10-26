@@ -3,11 +3,11 @@ import { upDownVoteComment, deleteComment } from "./utils/axios"
 import { useState } from "react"
 import { ColorRing } from "react-loader-spinner"
 
-export const CommentCards = ({ comments, comment, index, loggedInUser, setThisArticleComments }) => {
+export const CommentCards = ({ comments, comment, loggedInUser, setThisArticleComments }) => {
   const [deletePending, setDeletePending] = useState(false)
 
   return (
-    <article key={comment.comment_id} className={index === comments.length - 1 ? '' : 'article-card'}>
+    <article key={comment.comment_id} className='article-card'>
       <section className="flex-div">
         <p>{comment.body}</p>
           <VoteButtons upDownVote={upDownVoteComment} article={comment} />

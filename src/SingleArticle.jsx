@@ -16,13 +16,21 @@ export const SingleArticle = ({ loggedInUser }) => {
   const [commentFeedback, setCommentFeedback] = useState('')
   const [pageNumber,setPageNumber]=useState(+(searchParams.get('p'))||1)
   const [commentInput, setCommentInput] = useState('')
-  const [commentsNotFound,setCommentsNotFound]=useState(false)
+  const [isLoadingComments, setIsLoadingComments] = useState(false)
 
   useEffect(() => {
     setIsLoading(true)
-    getCommentsByArticle(article_id, setThisArticleComments, setIsLoading, setErrState,pageNumber)
+    getCommentsByArticle(article_id, setThisArticleComments, setErrState,1)
+      .then(()=>setIsLoading(false))
     setSearchParams({'p':pageNumber})
-  }, [article_id,pageNumber])
+  }, [article_id])
+
+  useEffect(()=>{
+    setIsLoadingComments(true)
+    getCommentsByArticle(article_id, setThisArticleComments, setErrState,pageNumber)
+      .then(()=>setIsLoadingComments(false))
+    setSearchParams({'p':pageNumber})
+  },[pageNumber])
 
   return errState ? (
     <p>There doesn't seem to be anything here...</p>
@@ -61,11 +69,14 @@ export const SingleArticle = ({ loggedInUser }) => {
             colors={['#ff0800', '#ff0800', '#ff0800', '#ff0800', '#ff0800']}
           />) : (<button type='submit'>{'>'}</button>)}
         </div>
-      </form>) : ''}
+      </form>) : <div className='parent'>
+        <p className='usr-msg'>Log in or register to post a comment.</p>
+        
+        </div>}
       <div className='parent'>
-        {thisArticleComments.map((comment, index) => {
+        {isLoadingComments?(<p className='usr-msg'>Loading...</p>):thisArticleComments.map((comment, index) => {
           return (
-            <CommentCards loggedInUser={loggedInUser} comment={comment} index={index} comments={thisArticleComments} setThisArticleComments={setThisArticleComments} />
+            <CommentCards loggedInUser={loggedInUser} comment={comment} comments={thisArticleComments} setThisArticleComments={setThisArticleComments} />
           )
         })}
         <PageSwitcher pageNumber={pageNumber} setPageNumber={setPageNumber} pageLength={thisArticleComments.length}/>

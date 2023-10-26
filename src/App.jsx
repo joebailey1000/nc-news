@@ -4,6 +4,7 @@ import { ArticleCards } from './ArticleCards'
 import { Routes, Route, Link } from 'react-router-dom'
 import { SingleArticle } from './SingleArticle'
 import { TopicMenu } from './TopicMenu'
+import { LogIn } from './LogIn'
 
 
 function App() {
@@ -20,6 +21,7 @@ function App() {
         <Route path='/articles/:article_id' element={<SingleArticle loggedInUser={loggedInUser}/>} />
         <Route path='/topics' element={<TopicMenu/>} />
         <Route path='/topics/:slug' element={<ArticleCards/>}/>
+        <Route path='/login' element={<LogIn setLoggedInUser={setLoggedInUser}/>}/>
         <Route path='/*' element={<p>It doesn't look like that page exists...</p>}/>
       </Routes>
     </>
