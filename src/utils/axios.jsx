@@ -50,6 +50,11 @@ const getSingleArticle = (setArticles, setIsLoading, article_id, setNotFound) =>
     }).catch(()=>setNotFound(true))
 }
 
+const getArticlesByUsername=(loggedInUser,setUserArticles, pageNumber)=>{
+  axios.get(`https://news-api-p73k.onrender.com/api/users/${loggedInUser}/articles?limit=10&p=${pageNumber}`)
+    .then(res=>setUserArticles(res.data.articles))
+}
+
 const upDownVoteArticle = (increment, article) => {
   return axios.patch(`https://news-api-p73k.onrender.com/api/articles/${article.article_id}`, { inc_votes: increment })
     .catch(err => {
@@ -71,8 +76,13 @@ const getUsers = () => {
     .then((res) => res.data.users)
 }
 
+const getUserByName=(loggedInUser,setCurrUser)=>{
+  return axios.get(`https://news-api-p73k.onrender.com/api/users/${loggedInUser}`)
+    .then(res=>setCurrUser(res.data.user))
+}
+
 const deleteComment = (comment) => {
   return axios.delete(`https://news-api-p73k.onrender.com/api/comments/${comment.comment_id}`)
 }
 
-export { getTopics, getCommentsByArticle, postComment, getArticles, getSingleArticle, upDownVoteArticle, upDownVoteComment, getUsers, deleteComment }
+export { getTopics, getCommentsByArticle, postComment, getArticles, getSingleArticle, getArticlesByUsername, upDownVoteArticle, upDownVoteComment, getUsers, getUserByName, deleteComment }

@@ -12,7 +12,8 @@ export const TopicMenu = () => {
 
   return isLoading ? (<p>Loading...</p>) : (
     <>
-      <h2>Topics</h2>
+    <h2>Topics</h2>
+    <div className="center-div">
       <div className="parent">
         {topics.map((topic, index) => {
           return (
@@ -23,6 +24,7 @@ export const TopicMenu = () => {
           )
         })}
       </div>
+    </div>
     </>
   )
 }

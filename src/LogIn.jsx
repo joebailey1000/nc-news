@@ -18,6 +18,7 @@ export const LogIn = ({ setLoggedInUser }) => {
   }, [])
 
   return isLoading ? (<p>Loading...</p>) : (
+    <div className="center-div">
     <div className="parent">
       <form className='article-card' onSubmit={(e) => {
         e.preventDefault()
@@ -25,7 +26,7 @@ export const LogIn = ({ setLoggedInUser }) => {
           setLoggedInUser(loginInput)
           setLoginInput('')
         } else alert('That user doesn\'t exist...')
-        navigate('/articles')
+        navigate('/')
 
       }}>
         <label htmlFor='log-in'>Enter your Username:</label>
@@ -40,6 +41,7 @@ export const LogIn = ({ setLoggedInUser }) => {
           )
         })}
       </ul>
+    </div>
     </div>
   )
 }

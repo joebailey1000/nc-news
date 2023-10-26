@@ -13,9 +13,9 @@ export const ArticleCards = ({ article_id, showBody }) => {
   const [sortBy, setSortBy] = useState('created_at')
   const [queryOrder, setQueryOrder] = useState('desc')
   const [pageNumber, setPageNumber] = useState(1)
-  const [notFound,setNotFound]=useState(false)
+  const [notFound, setNotFound] = useState(false)
 
-  const [searchParams, setSearchParams] = useSearchParams({sort_by:'created_at',order:'desc',p:pageNumber})
+  const [searchParams, setSearchParams] = useSearchParams({ sort_by: 'created_at', order: 'desc', p: pageNumber })
 
   function pingForArticles() {
     setIsLoading(true)
@@ -30,35 +30,36 @@ export const ArticleCards = ({ article_id, showBody }) => {
     }
   }
 
-  useEffect(pingForArticles, [slug, article_id, pageNumber, sortBy,queryOrder])
+  useEffect(pingForArticles, [slug, article_id, pageNumber, sortBy, queryOrder])
 
   return (
-
-    <div className='parent' >
-      {article_id ? '' : (<form className="article-card">
-        <label htmlFor="sort-by">Sort by: </label>
-        <select onChange={(e) => {
+    <div className="center-div">
+      <div className='parent' >
+        {article_id ? '' : (<form className="article-card">
+          <label htmlFor="sort-by">Sort by: </label>
+          <select onChange={(e) => {
             setSortBy(e.target.value)
             console.log(sortBy)
             setPageNumber(1)
           }}>
-          <option value='created_at'>Date</option>
-          <option value='comment_count'>Comment count</option>
-          <option value='votes'>Votes</option>
-        </select>
-        <select onChange={(e) => {
+            <option value='created_at'>Date</option>
+            <option value='comment_count'>Comment count</option>
+            <option value='votes'>Votes</option>
+          </select>
+          <select onChange={(e) => {
             setQueryOrder(e.target.value)
             setPageNumber(1)
           }}>
-          <option value='desc'>Descending</option>
-          <option value='asc'>Ascending</option>
-        </select>
-      </form>
-      )}
-      {notFound?(<p>There doesn't seem to be anything here...</p>):isLoading ? (<p>Loading...</p>) : articles.map((article) => {
-        return (<ArticleCard showBody={showBody} article={article} key={article.article_id} />)
-      })}
-      {article_id ? '' : (<PageSwitcher pageNumber={pageNumber} setPageNumber={setPageNumber} pageLength={articles.length} />)}
+            <option value='desc'>Descending</option>
+            <option value='asc'>Ascending</option>
+          </select>
+        </form>
+        )}
+        {notFound ? (<p>There doesn't seem to be anything here...</p>) : isLoading ? (<p>Loading...</p>) : articles.map((article) => {
+          return (<ArticleCard showBody={showBody} article={article} key={article.article_id} />)
+        })}
+        {article_id ? '' : (<PageSwitcher pageNumber={pageNumber} setPageNumber={setPageNumber} pageLength={articles.length} />)}
+      </div>
     </div>
   )
 }

@@ -39,6 +39,7 @@ export const SingleArticle = ({ loggedInUser }) => {
   ) : (
     <>
       <ArticleCards article_id={article_id} showBody={true} />
+      <div className='center-div'>
       {loggedInUser ? (<form className='parent' onSubmit={(e) => {
         e.preventDefault()
         if (commentInput) {
@@ -73,6 +74,8 @@ export const SingleArticle = ({ loggedInUser }) => {
         <p className='usr-msg'>Log in or register to post a comment.</p>
         
         </div>}
+        </div>
+        <div className='center-div'>
       <div className='parent'>
         {isLoadingComments?(<p className='usr-msg'>Loading...</p>):thisArticleComments.map((comment, index) => {
           return (
@@ -81,7 +84,7 @@ export const SingleArticle = ({ loggedInUser }) => {
         })}
         <PageSwitcher pageNumber={pageNumber} setPageNumber={setPageNumber} pageLength={thisArticleComments.length}/>
       </div>
-
+      </div>
     </>
   )
 }
