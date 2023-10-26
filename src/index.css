@@ -3,25 +3,25 @@ html {
 }
 
 body{
-  margin:0px
+  margin:0px;
+  background-color: #E3E2DF;
 }
 
 .header{
-  background-color: #c50000;
+  background-color: #5d001e;
   border-bottom:groove black 1px
 }
 
 h1{
   margin-left:20px;
-  color:black;
+  color:white;
   text-decoration: none;
 }
 
 .parent {
-  background-color: rgb(192, 192, 192);
+  background-color: #E3E2DF;
   width: 320px;
   border-radius: 5px;
-  border: solid grey 1px;
   margin:23px;
   padding:10px
 }
@@ -45,20 +45,31 @@ h1{
   margin: 10px 30px 10px 30px
 }
 
-.vote-button-up {
+.vote-button {
   transform: rotate(-90deg);
   width: 20px;
-  height: 20px;
+  height: 30px;
+  font-size:30px;
+  font-weight: 1000;
+  text-align: center;
+  padding:0px;
+  background-color: #E3E2DF;
+  border:none;
+  transition:0.3s;
 }
 
-.vote-button-down {
-  transform: rotate(-90deg);
-  width: 20px;
-  height: 20px;
+.vote-up:hover{
+  color:red
+}
+
+.vote-down:hover{
+  color:blue
 }
 
 .vote-count {
-  margin: 0px
+  margin: 0px;
+  text-align: center;
+  margin-left:9px
 }
 
 .body {
@@ -83,9 +94,15 @@ h1{
 }
 
 .page-button{
-  height: 20px;
-  width:20px;
-  margin:15px
+  width: 30px;
+  height: 30px;
+  font-size:30px;
+  font-weight: 1000;
+  text-align: center;
+  padding:0px;
+  background-color: #E3E2DF;
+  border:none;
+  margin:6px
 }
 
 .comment-icon {
@@ -93,6 +110,7 @@ h1{
   height: 20px;
   opacity: 0.5;
   margin-top: 20px;
+  border-radius: 25%;
 }
 
 .comment-count {
@@ -119,12 +137,12 @@ h1{
 .delete-comment {
   margin-top:19px;
   border-radius: 50%;
-  background-color: red;
+  background-image: radial-gradient(rgb(255, 84, 84),#3b0000);
   color: white;
   font-weight: 1000;
   border: solid black 1px;
-  height: 20px;
-  width: 20px
+  height: 23px;
+  width: 23px
 }
 
 .delete-comment:active {
@@ -133,13 +151,6 @@ h1{
 
 .usr-msg{
   margin-left:10px
-}
-
-.log-in-button{
-  margin-top:30px;
-  margin-right:20px;
-  color:white;
-  text-decoration: none;
 }
 
 #profile-grid{
@@ -159,4 +170,58 @@ h1{
 
 h2{
   margin-top:60px
+}
+
+#title-button{
+  background-color: #5d001e;
+  border:none;
+  width:200px;
+  text-align: center;
+  padding-right:20px;
+  transition:0.3s;
+}
+
+#title-button:hover{
+  background-color: #7a0027;
+  transition:0.3s;
+}
+
+.log-in-button{
+  height:30px;
+  margin-top:18px;
+  margin-right:20px;
+  color:white;
+  text-decoration: none;
+  border-radius: 5px;
+  background-color: #5d001e;
+  border:none;
+  transition:0.3s;
+}
+
+.log-in-button:hover{
+  background-color: #7a0027;
+  transition:0.3s;
+}
+
+#subheader{
+  border-bottom:black solid 1px;
+  display:flex;
+  justify-content: space-around;
+  width:400px;
+  height:60px;
+}
+
+.sub-header-button{
+  margin:15px;
+  font-size: 20px;
+  height:30px;
+  background-color: #E3E2DF;
+  border:none;
+  border-radius: 10px;
+  transition:0.3s;
+}
+
+.sub-header-button:hover{
+  background-color: #c2c2c2;
+  transition:0.3s;
 }

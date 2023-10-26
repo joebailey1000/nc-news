@@ -38,9 +38,9 @@ export const Profile=({loggedInUser})=>{
       <div className="center-div">
       <div className='parent' >
         <div className="article-card">
-          <h3>Your Articles</h3>
+          <h3>My Articles</h3>
         </div>
-        {isLoading ? (<p>Loading...</p>) : !userArticles.length ? (<p>You haven't posted anything yet.</p>) : userArticles.map((article) => {
+        {isLoading ? (<p>Loading...</p>) : !userArticles.length ? (<p>There isn't anything here yet..</p>) : userArticles.map((article) => {
           return (<ArticleCard showBody={false} article={article} key={article.article_id} />)
         })}
         <PageSwitcher pageNumber={pageNumber} setPageNumber={setPageNumber} pageLength={userArticles.length} />

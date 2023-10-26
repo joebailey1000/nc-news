@@ -1,4 +1,3 @@
-
 import { Link } from "react-router-dom"
 import { useNavigate } from "react-router-dom"
 
@@ -7,19 +6,18 @@ export const Header = ({ loggedInUser, setLoggedInUser }) => {
 
   return (
     <div className="flex-div header">
-      <Link to='/'><h1>NC NEWS</h1></Link>
+      <button id='title-button' onClick={()=>navigate('/')}><h1>NC NEWS</h1></button>
       {loggedInUser ? (
-        <div className="log-in-button">
-          <Link className='log-in-button' to='/profile'>Profile</Link>
-          <button onClick={() => {
+        <div>
+          <button className='log-in-button' onClick={()=>navigate('/profile')}>Profile</button>
+          <button className='log-in-button' onClick={() => {
             setLoggedInUser(false)
             navigate('')
             }}>Log Out</button>
         </div>
       ) : (
-        <Link className='log-in-button' to='/login'>Log In</Link>
+        <button className='log-in-button' onClick={()=>navigate('/login')}>Log In</button>
       )}
-
     </div>
   )
 }
