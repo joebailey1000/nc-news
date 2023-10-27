@@ -34,7 +34,7 @@ export const HomePage = ({ loggedInUser }) => {
       }
       <div className="center-div">
         <div className="parent" id='home-topics'>
-          {!loggedInUser?'':postPending? <ColorRing
+          {!loggedInUser?<button id='log-in-home' onClick={()=>navigate('/login')}><h3>Log in to post an article.</h3></button>:postPending? <ColorRing
             visible={true}
             height="100"
             width="100"

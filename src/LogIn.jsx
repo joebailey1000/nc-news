@@ -17,7 +17,7 @@ export const LogIn = ({ setLoggedInUser }) => {
       })
   }, [])
 
-  return isLoading ? (<p>Loading...</p>) : (
+  return isLoading ? (<div className="center-div"><p>Loading...</p></div>) : (
     <div className="center-div">
     <div className="parent">
       <form className='article-card' onSubmit={(e) => {

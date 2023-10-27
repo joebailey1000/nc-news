@@ -341,6 +341,19 @@ h2{
   margin-top:12px;
 }
 
+#log-in-home{
+  background-color: #E3E2DF;
+  border:none;
+  border-radius: 20px;
+  transition: 0.3s;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+#log-in-home:hover{
+  background-color:#c2c2c2;
+  transition: 0.3s;
+}
+
 #post-article-button{
   width:100px;
   height:1.7em;
