@@ -33,14 +33,14 @@ export const SingleArticle = ({ loggedInUser }) => {
   },[pageNumber])
 
   return errState ? (
-    <p>There doesn't seem to be anything here...</p>
+    <div className='center-div'><p>There doesn't seem to be anything here...</p></div>
   ) : isLoading ? (
-    <p>Loading...</p>
+    <div className='center-div'><p>Loading...</p></div>
   ) : (
     <>
       <ArticleCards article_id={article_id} showBody={true} />
       <div className='center-div'>
-      {loggedInUser ? (<form className='parent' onSubmit={(e) => {
+      {loggedInUser ? (<form className='parent' id='comment-input-form' onSubmit={(e) => {
         e.preventDefault()
         if (commentInput) {
           setCommentPending(true)
@@ -76,7 +76,7 @@ export const SingleArticle = ({ loggedInUser }) => {
         </div>}
         </div>
         <div className='center-div'>
-      <div className='parent'>
+      <div className='parent' id='comment-master'>
         {isLoadingComments?(<p className='usr-msg'>Loading...</p>):thisArticleComments.map((comment, index) => {
           return (
             <CommentCards loggedInUser={loggedInUser} comment={comment} comments={thisArticleComments} setThisArticleComments={setThisArticleComments} />

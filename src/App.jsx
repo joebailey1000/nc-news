@@ -22,12 +22,13 @@ function App() {
       <Routes>
         <Route path='/' element={<HomePage loggedInUser={loggedInUser}/>}/>
         <Route path='/profile' element={<Profile loggedInUser={loggedInUser}/>}/>
+        <Route path='/users/:username' element={<Profile/>}/>
         <Route path='/articles' element={<ArticleCards/>} />
         <Route path='/articles/:article_id' element={<SingleArticle loggedInUser={loggedInUser}/>} />
         <Route path='/topics' element={<TopicMenu/>} />
         <Route path='/topics/:slug' element={<ArticleCards/>}/>
         <Route path='/login' element={<LogIn setLoggedInUser={setLoggedInUser}/>}/>
-        <Route path='/*' element={<p>It doesn't look like that page exists...</p>}/>
+        <Route path='/*' element={<div className='center-div'><p>It doesn't look like that page exists...</p></div>}/>
       </Routes>
     </>
   )

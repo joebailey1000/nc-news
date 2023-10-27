@@ -55,6 +55,11 @@ const getArticlesByUsername=(loggedInUser,setUserArticles, pageNumber)=>{
     .then(res=>setUserArticles(res.data.articles))
 }
 
+const getCommentsByUsername=(loggedInUser,setUserComments, pageNumber)=>{
+  axios.get(`https://news-api-p73k.onrender.com/api/users/${loggedInUser}/comments?limit=10&p=${pageNumber}`)
+    .then(res=>setUserComments(res.data.comments))
+}
+
 const upDownVoteArticle = (increment, article) => {
   return axios.patch(`https://news-api-p73k.onrender.com/api/articles/${article.article_id}`, { inc_votes: increment })
     .catch(err => {
@@ -85,4 +90,4 @@ const deleteComment = (comment) => {
   return axios.delete(`https://news-api-p73k.onrender.com/api/comments/${comment.comment_id}`)
 }
 
-export { getTopics, getCommentsByArticle, postComment, getArticles, getSingleArticle, getArticlesByUsername, upDownVoteArticle, upDownVoteComment, getUsers, getUserByName, deleteComment }
+export { getTopics, getCommentsByArticle, postComment, getArticles, getSingleArticle, getArticlesByUsername, getCommentsByUsername, upDownVoteArticle, upDownVoteComment, getUsers, getUserByName, deleteComment }

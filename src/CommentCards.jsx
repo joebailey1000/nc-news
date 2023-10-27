@@ -2,9 +2,11 @@ import { VoteButtons } from "./VoteButtons"
 import { upDownVoteComment, deleteComment } from "./utils/axios"
 import { useState } from "react"
 import { ColorRing } from "react-loader-spinner"
+import { useNavigate } from "react-router-dom"
 
 export const CommentCards = ({ comments, comment, loggedInUser, setThisArticleComments }) => {
   const [deletePending, setDeletePending] = useState(false)
+  const navigate=useNavigate()
 
   return (
     <article key={comment.comment_id} className='article-card'>
@@ -13,7 +15,8 @@ export const CommentCards = ({ comments, comment, loggedInUser, setThisArticleCo
           <VoteButtons upDownVote={upDownVoteComment} article={comment} />
       </section>
       <section className="flex-div">
-        <p className="de-emphasise usr-msg">{comment.author}</p>
+      <button className='user-button' onClick={()=>navigate(`/users/${comment.author}`)}><p className="de-emphasise usr-msg">{comment.author}</p></button>
+        
         <p className="de-emphasise">{comment.created_at.slice(0, 10)}</p>
           {loggedInUser === comment.author ? deletePending ? (<ColorRing
             className='delete-spinner'

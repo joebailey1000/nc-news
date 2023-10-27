@@ -1,5 +1,7 @@
-import { Link } from "react-router-dom"
+
 import { useNavigate } from "react-router-dom"
+import logout from './assets/log-out.jpg'
+import defaultProfile from './assets/default.png'
 
 export const Header = ({ loggedInUser, setLoggedInUser }) => {
   const navigate=useNavigate()
@@ -9,11 +11,11 @@ export const Header = ({ loggedInUser, setLoggedInUser }) => {
       <button id='title-button' onClick={()=>navigate('/')}><h1>NC NEWS</h1></button>
       {loggedInUser ? (
         <div>
-          <button className='log-in-button' onClick={()=>navigate('/profile')}>Profile</button>
+          <button className='log-in-button' onClick={()=>navigate('/profile')}><img id='default-profile' src={defaultProfile}/></button>
           <button className='log-in-button' onClick={() => {
             setLoggedInUser(false)
             navigate('')
-            }}>Log Out</button>
+            }}><img id='logout' src={logout}/></button>
         </div>
       ) : (
         <button className='log-in-button' onClick={()=>navigate('/login')}>Log In</button>
