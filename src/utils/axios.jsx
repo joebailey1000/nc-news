@@ -90,4 +90,17 @@ const deleteComment = (comment) => {
   return axios.delete(`https://news-api-p73k.onrender.com/api/comments/${comment.comment_id}`)
 }
 
-export { getTopics, getCommentsByArticle, postComment, getArticles, getSingleArticle, getArticlesByUsername, getCommentsByUsername, upDownVoteArticle, upDownVoteComment, getUsers, getUserByName, deleteComment }
+const postArticle = (setPosted,setPostPending,articleObject)=>{
+  return axios.post('https://news-api-p73k.onrender.com/api/articles',articleObject)
+    .then(()=>{
+      setPosted(true)
+      setPostPending(false)
+      setTimeout(()=>setposted(false),3000)
+    })
+}
+
+const deleteArticle = (article)=>{
+  return axios.delete(`https://news-api-p73k.onrender.com/api/articles/${article.article_id}`)
+}
+
+export { getTopics, getCommentsByArticle, postComment, getArticles, getSingleArticle, getArticlesByUsername, getCommentsByUsername, upDownVoteArticle, upDownVoteComment, getUsers, getUserByName, deleteComment, postArticle, deleteArticle }

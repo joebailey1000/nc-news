@@ -196,6 +196,7 @@ h2{
   background-color: #5d001e;
   border:none;
   transition:0.3s;
+  font-size:18px
 }
 
 #subheader{
@@ -293,6 +294,57 @@ h2{
   color:black;
   background-color: #c2c2c2;
   transition:0.3s
+}
+
+.post-article-label{
+  margin:3px;
+  font-weight: 600;
+}
+
+#placeholder{
+  height:1000px
+}
+
+#log-in{
+  margin:6px;
+}
+
+#post-article{
+  display:flex;
+  flex-direction: column;
+}
+
+#article-body-input{
+  height:5em;
+}
+
+.drop-down, #topic-input{
+  transition:0.3s;
+  background-color: #fafafa;
+  border: grey solid 1px;
+  border-radius:5px;
+  margin:3px
+}
+
+.drop-down:hover, #topic-input:hover{
+  transition:0.3s;
+  background-color: #c2c2c2;
+}
+
+#home-welcome h2{
+  text-align:center
+}
+
+#topic-input{
+  width:100px;
+  margin:8px;
+  margin-top:12px;
+}
+
+#post-article-button{
+  width:100px;
+  height:1.7em;
+  margin:12px
 }
 
 @media screen and (min-width:600px){

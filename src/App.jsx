@@ -12,7 +12,6 @@ import { SubHeader } from './SubHeader'
 
 function App() {
   const [loggedInUser,setLoggedInUser]=useState(false)
-
   
   return (
     <>

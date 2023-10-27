@@ -38,7 +38,7 @@ export const ArticleCards = ({ article_id, showBody }) => {
         <div className='parent' id='article-cards-master'>
           {article_id ? '' : (<form className="article-card">
             <label htmlFor="sort-by">Sort by: </label>
-            <select onChange={(e) => {
+            <select className='drop-down' onChange={(e) => {
               setSortBy(e.target.value)
               console.log(sortBy)
               setPageNumber(1)
@@ -47,7 +47,7 @@ export const ArticleCards = ({ article_id, showBody }) => {
               <option value='comment_count'>Comment count</option>
               <option value='votes'>Votes</option>
             </select>
-            <select onChange={(e) => {
+            <select className='drop-down' onChange={(e) => {
               setQueryOrder(e.target.value)
               setPageNumber(1)
             }}>
@@ -56,7 +56,7 @@ export const ArticleCards = ({ article_id, showBody }) => {
             </select>
           </form>
           )}
-          {notFound ? (<p>There doesn't seem to be anything here...</p>) : isLoading ? (<p>Loading...</p>) : articles.map((article) => {
+          {notFound ? (<p>There doesn't seem to be anything here...</p>) : isLoading ? (<div id='placeholder'><p>Loading...</p></div>) : articles.map((article) => {
             return (<ArticleCard showBody={showBody} article={article} key={article.article_id} />)
           })}
           {article_id ? '' : (<PageSwitcher pageNumber={pageNumber} setPageNumber={setPageNumber} pageLength={articles.length} />)}
